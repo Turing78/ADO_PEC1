@@ -782,7 +782,7 @@ dev.off()
 }
 ```
 
-### Significació biológica
+### Significació biològica
 
 Interpretar els resultats obtinguts comporta anàlitzar la llista de gens obtinguda i veure quines funcions, processos biològics o pathways de molècules apareixen amb major freqüencia en aquesta llista de gens. Al filtrar els gens és recomanable que la selecció sigui menys restrictiva que la realitzada anteriorment. Treballarem amb el paquet *ClusterProfile* seguint les instruccions que es troben a @Yu2020.
 
@@ -942,7 +942,7 @@ knitr::kable(Tab.react2, booktabs = TRUE, caption = "First rows and columns for 
 
 # Resultats
 
-Un cop completat el pipeline s'han obtingut una llista de fitxers i de gràfics amb les dades dels resultats obtinguts. Aquests són la base per interpretar i discutir la significació biològica de l'experiment. Aquesta és la taula resum amb tots els fitxers que s'han generat.
+Un cop completat el pipeline s'han obtingut una llista de fitxers i de gràfics amb les dades dels resultats obtinguts. Aquests són la base per interpretar i discutir la significació biològica de l'experiment. A continuació es pot consultar la taula resum amb tots els fitxers que s'han generat.
 
 ```{r listOfFiles, echo=FALSE}
 listOfFiles <- read.csv2(file.path("./results/List_of_files.csv")                         , sep = ",", header = TRUE)
