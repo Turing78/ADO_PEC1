@@ -43,6 +43,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE,
 Sys.setlocale("LC_TIME", "C")
 ```
 
+
 ```{r echo=FALSE}
 if(!(require(printr))) {
   install.packages(
