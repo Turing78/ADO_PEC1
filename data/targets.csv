@@ -1,0 +1,13 @@
+FileName;ShortFileName;Group;Nash;Elaf;Replicate;ShortName
+ ./data/GSM3602413_hSKP-HPC_control_condition__replicate_1.CEL;GSM3602413;CO.CO;CO;CO;1;CO.CO1
+ ./data/GSM3602414_hSKP-HPC_control_condition__replicate_2.CEL;GSM3602414;CO.CO;CO;CO;2;CO.CO2
+ ./data/GSM3602415_hSKP-HPC_control_condition__replicate_3.CEL ;GSM3602415;CO.CO;CO;CO;3;CO.CO3
+./data/GSM3602416_hSKP-HPC_NASH__replicate_1.CEL                   ;GSM3602416;NS.CO;NS;CO;1;NS.CO1
+./data/GSM3602417_hSKP-HPC_NASH__replicate_2.CEL                 ;GSM3602417;NS.CO;NS;CO;2;NS.CO2
+./data/GSM3602418_hSKP-HPC_NASH__replicate_3.CEL                  ;GSM3602418;NS.CO;NS;CO;3;NS.CO3
+./data/GSM3602419_hSKP-HPC_NASH_+_elafibranor_10microM__replicate_1.CEL;GSM3602419;NS.LE;NS;LE;1;NS.LE1
+./data/GSM3602420_hSKP-HPC_NASH_+_elafibranor_10microM__replicate_2.CEL;GSM3602420;NS.LE;NS;LE;2;NS.LE2
+./data/GSM3602421_hSKP-HPC_NASH_+_elafibranor_10microM__replicate_3.CEL;GSM3602421;NS.LE;NS;LE;3;NS.LE3
+./data/GSM3602422_hSKP-HPC_NASH_+_elafibranor_30microM__replicate_1.CEL;GSM3602422;NS.HE;NS;HE;1;NS.HE1
+./data/GSM3602423_hSKP-HPC_NASH_+_elafibranor_30microM__replicate_2.CEL;GSM3602423;NS.HE;NS;HE;2;NS.HE2
+./data/GSM3602424_hSKP-HPC_NASH_+_elafibranor_30microM__replicate_3.CEL;GSM3602424;NS.HE;NS;HE;3;NS.HE3
