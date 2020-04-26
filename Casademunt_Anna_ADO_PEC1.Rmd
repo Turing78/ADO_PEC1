@@ -2,32 +2,36 @@
 title: |
   | Anàlisi de Microarrays
   | PAC1
+  | https://github.com/Turing78/ADO_PEC1.git
 author: "Anna Casademunt Ballabriga"
 date: "April 2020"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: 3
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    toc: yes
+    toc_float: yes
+link-citations: yes
+editor_options:
+  chunk_output_type: console
 params:
-  instalar:
-    input: boolean
-    label: Instalar els packages
-    value: yes
   grafics:
     input: boolean
     label: Dibuixar els grafics
+    value: yes
+  instalar:
+    input: boolean
+    label: Instalar els packages
     value: yes
   tiff:
     input: boolean
     label: Guardar els grafics a resultats
     value: yes
-output:
-  pdf_document:
-    toc: yes
-    toc_depth: 3
-  html_document:
-    toc: yes
-    toc_float: yes
-editor_options: 
-  chunk_output_type: console
 bibliography: references.bib
-link-citations: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -52,7 +56,7 @@ if(!(require(printr))) {
 \newpage
 # Abstract
 
-Les dades de l'estudi contenen les lectures transcriptómica d'un nou model in vitro de stestohepatitis no-alcoholica(NASH) i del seu posterior tractament amb elafibranor, un compost potencialment terapeutic contra el NASH.
+Les dades de l'estudi contenen les lectures transcriptòmica d'un nou model in vitro de steatohepatitis no-alcohòlica(NASH) i del seu posterior tractament amb elafibranor, un compost potencialment terapèutic contra el NASH.
 
 L'estudi original es pot consultar a @Boeckmans2019.
 
@@ -60,11 +64,11 @@ L'estudi original es pot consultar a @Boeckmans2019.
 
 L'objectiu de l'estudi és identificar, a través del transcriptoma o expressió gènica, grups de gens involucrats en la malaltia en primer lloc, i resultants dels seus tractaments amb 10 $\mu$M i 30 $\mu$M d'Elafibranor respectivament. Finalment, si es possible, localitzar pathways cel·lulars rellevants amb Gene Ontology i Kyoto Enciclopedia of Genes and Genomes.
 
-# Materials y Métodes
+# Materials y Mètodes
 
-L'anàlisi s'ha realitzat seguint els pasos de l'estudi d'Alex Sánchez  <https://github.com/ASPteaching/Omics_Data_Analysis-Case_Study_1-Microarrays>, modificant els pasos on s'ha considerat pertinent, i utilitzant técniques més modernes en el cas de ReactomePa, tal com s'ha sugerit al fórum de l'assignatura.
+L'anàlisi s'ha realitzat seguint els passos de l'estudi d'Alex Sánchez  <https://github.com/ASPteaching/Omics_Data_Analysis-Case_Study_1-Microarrays>, modificant els passos on s'ha considerat pertinent, i utilitzant tècniques més modernes en el cas de ReactomePa, tal com s'ha recomanat al fòrum de l'assignatura.
 
-El codi R no es mostrarà en el cos del document, tot i que s'hi executen *chunks*. El codi complet es pot trobar al <https://github.com/Turing78/ADO_PEC1.git>, però aquest repositori és privat per donar compliment al codi étic de la UOC i evitar plagis. 
+El codi R no es mostrarà en el cos del document, tot i que s'hi executen *chunks*. El codi complet es pot trobar al <https://github.com/Turing78/ADO_PEC1.git>, però aquest repositori és privat per a donar compliment al codi ètic de la UOC i evitar plagis. 
 
 Addicionalment, i per garantir la reproduïbilitat de l'anàlisi, s'inclou també el directori *data* amb les dades de les cels del microarray i el fitxer *target.csv*.
 
@@ -127,11 +131,11 @@ if(!file.exists(paste0("./data/GSE126484")))
 
 ### Les dades per l'anàlisi
 
-Les dades consten de 12 fitxers. El tres primers contenen cadascun l'mRNA total de les mostres de control, que són en aquest cas cél·lules mare derivades de pell humana i diferenciades cap a cel·lules hepàtiques (hSKP-HPC). Els tres següents s'obtenen d'exposar aquestes mostres durant 24 hores a agents causants del NASH. Els 6 últims són el tractament d'aquestes mostres amb elafibranor a 10 $\mu$M i 30 $\mu$M. 
+Les dades consten de 12 fitxers. El tres primers contenen cadascun l'mRNA total de les mostres de control, que són en aquest cas cèl·lules mare derivades de pell humana i diferenciades cap a cèl·lules hepàtiques (hSKP-HPC). Els tres següents s'obtenen d'exposar aquestes mostres durant 24 hores a agents causants del NASH. Els 6 últims són el tractament d'aquestes mostres amb elafibranor a 10 $\mu$M i 30 $\mu$M. 
 
 La tecnologia és *Affymetrix Human Genome U133 Plus 2.0 Array*, arrays d'olinucleòtids, que ofereixen una cobertura completa del genoma representats en *GeneChip Human Genome U133 Set*: [HG-U113_Plus_2](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL570).
 
-Es construeix el fitxer de *targets* següent a partir del nom dels fitxers (o utilitzant les dades proporcionades a l'asccession): 
+Es construeix el fitxer de *targets* següent a partir del nom dels fitxers (o utilitzant les dades proporcionades a l'accession): 
 
 ```{r ReadTargets, echo = FALSE}
 targets <- read.csv2("./data/targets.csv", header = TRUE, sep = ";")
@@ -152,7 +156,7 @@ Els camps són:
 * **Replicate**: Número assignat a cada mostra
 * **ShortName**: nom curt per cadascuna de les cel·les del microarray.
 
-Es consideren dos factors pel que fa al disseny de l'experiment:Nash i Elaf. Nash té dos nivells: *CO* (control) i *NS* (per les cél·lules in vitro sobre les que s'ha causat la malaltia). Elaf té 3 nivells: *CO* (control), *LE* ("low elaf") per les mostres a 10 $\mu$M i *HE* ("high elaf) per les mostres a 30 $\mu$M.
+Es consideren dos factors pel que fa al disseny de l'experiment: Nash i Elaf. Nash té dos nivells: *CO* (control) i *NS* (per les cèl·lules in vitro a les que s'ha causat la malaltia). Elaf té 3 nivells: *CO* (control), *LE* ("low elaf") per les mostres a 10 $\mu$M i *HE* ("high elaf") per les mostres a 30 $\mu$M.
 
 \newpage
 ## Métodes
@@ -181,7 +185,7 @@ colnames(rawData) <-rownames(pData(rawData))
 
 ### Control de qualitat de les dades raw
 
-Abans de la normalització de les dades, és important realitzar-ne el control de qualitat. Per això s'utilitza la llibreria *arrayQualityMetrics*. Els resultats es guarden al directori *results/QCDir.Raw* en forma d'html, es poden consultar obrint el fitxer *index.htlm* amb un navegador. En el següent gráfic veiem els outliers, que es marquen si un microarray es troba per sobre d'un determinat nivell en un dels anàlisis de qualitat realitzats. Tres marques indiquen que s'hauria de revisar amb cura, i possiblement descartar per millorar la qualitat de l'experiment.
+Abans de la normalització de les dades, és important realitzar-ne el control de qualitat. Per això s'utilitza la llibreria *arrayQualityMetrics*. Els resultats es guarden al directori *results/QCDir.Raw* en forma d'html, es poden consultar obrint el fitxer *index.htlm* amb un navegador. En el següent gràfic veiem els outliers, que es marquen si un microarray es troba per sobre d'un determinat nivell en un dels anàlisis de qualitat realitzats. Tres marques indiquen que s'hauria de revisar amb cura, i possiblement descartar per millorar la qualitat de l'experiment.
 
 ```{r QCRaw, echo = FALSE, message=FALSE, warning=FALSE}
 if (params$grafics)
@@ -270,13 +274,13 @@ El boxplot confirma la desalineació del primer microarray amb elafibranor. Si n
 
 ### Normalització de les dades
 
-Per realitzar l'estudi de gens diferencialment expressats es necessari normalitzar les dades crues préviament per fer-les comparables. S'utilitza el mètode *rma* (Robust Multichip Analysis), que és el més freqüentment utilitzat per a les microarrays d'Affimetrix, tot i que existeixen altres mètodes de normalització. El programa ens indica els tres passos que segueix:
+Per realitzar l'estudi de gens diferencialment expressats es necessari normalitzar les dades crues prèviament per fer-les comparables. S'utilitza el mètode *rma* (Robust Multichip Analysis), que és el més freqüentment utilitzat per a les microarrays d'Affimetrix, tot i que existeixen altres mètodes de normalització. El programa ens indica els tres passos que segueix:
 
 ```{r Normalization, echo = FALSE, message=FALSE}
 eset_rma <- rma(rawData)
 ```
 
-1- Correcció de soroll de fons, 2- Normalizació per fer comparables els arrays i 3-Combinar les intensitats de les sondes entre els diferents arrays, perquè la mesura final representi fidelment el nivell l'expressió dels gens.
+1- Correcció de soroll de fons, 2- Normalització per fer comparables els arrays i 3-Combinar les intensitats de les sondes entre els diferents arrays, perquè la mesura final representi fidelment el nivell l'expressió dels gens.
 
 ### Control de qualitat de les dades normalitzades
 
@@ -320,7 +324,7 @@ Els grups apareixen ara més compactes i separats.
 
 \newpage
 
-Els boxplots són pràcticament idéntics.
+Els boxplots són pràcticament idèntics.
 
 ```{r BoxplotNorm, echo = FALSE, message=FALSE, fig.cap="Distribution of  intensities for normalized data"}
 if (params$grafics) {
@@ -397,7 +401,7 @@ La major variació es produeix al factor Nash amb un 54.4 %.
 \newpage
 ### Detectant els gens més variables
 
-El gràfic següent ens mostra les desviacions estàndard de tots els gens ordenada de menor a major. Els gens més variables seràn els que tenen una desviació estàndard per sobre del 90-95% de totes les desviacions estàndard. 
+El gràfic següent ens mostra les desviacions estàndard de tots els gens ordenada de menor a major. Els gens més variables seran els que tenen una desviació estàndard per sobre del 90-95% de totes les desviacions estàndard. 
 
 ```{r SDplot, echo = FALSE, fig.cap="Values of standard deviations along all samples for all genes ordered from smallest to biggest"}
 if (params$grafics) {
@@ -426,7 +430,7 @@ dev.off()
 \newpage
 ### Filtrant els gens menys variables
 
-Per escollir el punt de tall fem servir el paquet *multtest* que ens permet calcular el punt de tall per filtrar els gens. Com que l'objectiu d'aquest experiment és la captura de gens és raonable permetre alguns falsos positius i decidir controlar l'FDR (false discovery rates) que és menys restrictiu que l'FWER. 
+Per escollir el punt de tall fem servir el paquet *multtest* que ens permet calcular el punt de tall per filtrar els gens. Com que l'objectiu d'aquest experiment és la captura de gens és raonable permetre alguns falsos positius i decidir controlar l'FDR ("false discovery rate") que és menys restrictiu que l'FWER ("family-wise error rate"). 
 
 ```{r multtest, echo=FALSE}
 library(multtest)
@@ -447,14 +451,14 @@ selectedAdjusted<-ranked.adjusted[ranked.adjusted$Bonferroni<0.0001,]
 nrow(selectedAdjusted)
 ```
 
-Aquest és el número de gens que tallarem segonsBenjamin & Hochberg amb un valor ajustat de menys de 0.0001:
+Aquest és el número de gens que tallarem segons Benjamin & Hochberg amb un valor ajustat de menys de 0.0001:
 
 ```{r FDR, echo=FALSE}
 selectedAdjusted<-ranked.adjusted[ranked.adjusted$BH<0.0001,]
 nrow(selectedAdjusted)
 ```
 
-Tenint en aquest càlcul apliquem el valor *var.cutoff=0.7* a les dades normalitzades per filtrar (amb la funció *nsFilter* de *genefilter*) els gens amb la desviació estàndard més alta, eliminant aquells que puguin tenir una desviació deguda a l'atzar. L'anotació que es fa servir és el paquet *hgu133plus2.db* ja mencionat.
+Tenint en compte aquest càlcul apliquem el valor *var.cutoff=0.7* a les dades normalitzades per filtrar (amb la funció *nsFilter* de *genefilter*) els gens amb la desviació estàndard més alta, eliminant aquells que puguin tenir una desviació deguda a l'atzar. L'anotació que es fa servir és el paquet *hgu133plus2.db* ja mencionat.
 
 ```{r Filtering1, echo = FALSE, results='hide', message=FALSE}
 featureData(eset_rma)
@@ -472,7 +476,7 @@ print(filtered$filter.log)
 eset_filtered <-filtered$eset
 ```
 
-Desprès de filtrar queden `r dim(exprs(eset_filtered))[1]` gens. Aquests estaràn guardats a la variable *eset_filtered*
+Després de filtrar queden `r dim(exprs(eset_filtered))[1]` gens. Aquests es guarden a la variable *eset_filtered*
 
 ### Gravació de les dades filtrades i normalitzades
 
@@ -505,7 +509,6 @@ colnames(designMat) <- c("CO.CO", "NS.CO","NS.HE","NS.LE")
 print(designMat)
 ```
 
-\newpage
 ### Definint comparacions amb la matriu de contrastos
 
 Es defineixen 6 comparacions. De cadascuna obtindrem els gens diferencialment expressats ordenats pel p-valor, de més petit a més gran.
@@ -537,7 +540,7 @@ Per a la comparació 1 (NSvsCO): Gens que han canviat l'expressió després de c
 ```{r topTabs1, echo = FALSE}
 topTab_NSvsCO <- topTable (fit.main, number=nrow(fit.main), coef="NSvsCO", adjust="fdr")
 knitr::kable(
-  head(format(topTab_NSvsCO, digits = 4)), booktabs = TRUE,
+  format(head(topTab_NSvsCO), digits = 4), booktabs = TRUE,
   caption = 'First 5 records of the table topTab_NSvsCO')
 ```
 
@@ -553,38 +556,39 @@ topTab_HEvsCO <- topTable (fit.main, number=nrow(fit.main), coef="HEvsCO", adjus
 #head(topTab_HEvsCO)
 ```
 
-Per a la comparació 4 (LEvsNS): Gens que han canviat la seva expressió desde la malaltia NASH després de 10 $\mu$M d'Elafibranor.
+Per a la comparació 4 (LEvsNS): Gens que han canviat la seva expressió des de la malaltia NASH després de 10 $\mu$M d'Elafibranor.
 
 ```{r topTabs4, echo = FALSE}
 topTab_LEvsNS <-  topTable (fit.main, number=nrow(fit.main), coef="LEvsNS", adjust="fdr") 
 knitr::kable(
-  head(format(topTab_LEvsNS, digits = 4)), booktabs = TRUE,
+  format(head(topTab_LEvsNS), digits = 4), booktabs = TRUE,
   caption = 'First 5 records of the table topTab_LEvsNS')
 ```
 
-Per a la comparació 5 (HEvsNS): Gens que han canviat la seva expressió desde la malaltia NASH després de 30 $\mu$M d'Elafibranor.
+Per a la comparació 5 (HEvsNS): Gens que han canviat la seva expressió des de la malaltia NASH després de 30 $\mu$M d'Elafibranor.
 
 ```{r topTabs5, echo = FALSE}
 topTab_HEvsNS <- topTable (fit.main, number=nrow(fit.main), coef="HEvsNS", adjust="fdr") 
 knitr::kable(
-  head(format(topTab_HEvsNS, digits = 4)), booktabs = TRUE,
+  format(head(topTab_HEvsNS), digits = 4), booktabs = TRUE,
   caption = 'First 5 records of the table topTab_HEvsNS')
 ```
 
-Per a la comparació 6 (HEvsLE): Comparació dels dos tractaments amb Elafibranor desde NASH.
+Per a la comparació 6 (HEvsLE): Comparació dels dos tractaments amb Elafibranor des de NASH.
 
 ```{r topTabs6, echo = FALSE}
 topTab_HEvsLE <- topTable (fit.main, number=nrow(fit.main), coef="HEvsLE", adjust="fdr") 
 knitr::kable(
-  head(format(topTab_HEvsLE, digits = 4)), booktabs = TRUE,
+  format(head(topTab_HEvsLE), digits = 4), booktabs = TRUE,
   caption = 'First 5 records of the table topTab_HEvsLE')
 ```
 
-Nota: no s'inclouen les comparacions 2 i 3 perquè les taules són pràcticament idéntiques a les obtingudes a la comparació 1. Només disminueixen unes décimes a logFC. Aquestes dades es poden consultar als fitxers de la carpeta resultats.
+Nota: no s'inclouen les comparacions 2 i 3 perquè les taules són pràcticament idèntiques a les obtingudes a la comparació 1. Només disminueixen unes dècimes a logFC. Aquestes dades es poden consultar als fitxers de la carpeta resultats.
 
+\newpage
 ### Anotació de gens
 
-El procés d'anotació fa servir els identificadors de les taules obtingudes per obtenir informació addicional(simbol del gen, Entrez id o descripció del gen). En la taula següent es poden veure les 4 primeres columnes i 5 primeres files de la comparació 1 anotada.
+El procés d'anotació fa servir els identificadors de les taules obtingudes per obtenir informació addicional (símbol del gen, Entrez id o descripció del gen). En la taula següent es poden veure les 4 primeres columnes i 5 primeres files de les comparacions 1,4,5 i 6 anotades i ordenades per p-valor ajustat.
 
 ```{r GeneAnnotation, echo = FALSE, message=FALSE, warning=FALSE}
 annotatedTopTable <- function(topTab, anotPackage)
@@ -613,32 +617,56 @@ anotPackage="hgu133plus2.db")
 topAnnotated_HEvsLE <- annotatedTopTable(topTab_HEvsLE,
 anotPackage="hgu133plus2.db")
 write.csv(topAnnotated_NSvsCO, file="./results/topAnnotated_NSvsCO.csv")
-write.csv(topAnnotated_LEvsNS, file="./results/topAnnotated_LEvsCO.csv")
-write.csv(topAnnotated_HEvsNS, file="./results/topAnnotated_HEvsCO.csv")
+write.csv(topAnnotated_LEvsCO, file="./results/topAnnotated_LEvsCO.csv")
+write.csv(topAnnotated_HEvsCO, file="./results/topAnnotated_HEvsCO.csv")
 write.csv(topAnnotated_LEvsNS, file="./results/topAnnotated_LEvsNS.csv")
 write.csv(topAnnotated_HEvsNS, file="./results/topAnnotated_HEvsNS.csv")
 write.csv(topAnnotated_HEvsLE, file="./results/topAnnotated_HEvsLE.csv")
 ```
 
-```{r annotatedTop, echo=FALSE}
-short<- head(topAnnotated_NSvsCO[1:5,1:4])
+```{r annotatedTop1, echo=FALSE}
+short<- topAnnotated_NSvsCO[order(topAnnotated_NSvsCO$adj.P.Val),][1:5,1:4]
 knitr::kable(
   short, booktabs = TRUE,
   caption = 'Annotations for the comparison "NSvsCO"'
 )
 ```
 
+```{r annotatedTop4, echo=FALSE}
+short<- topAnnotated_LEvsNS[order(topAnnotated_LEvsNS$adj.P.Val),][1:5,1:4]
+knitr::kable(
+  short, booktabs = TRUE,
+  caption = 'Annotations for the comparison "LEvsNS"'
+)
+```
+
+```{r annotatedTop5, echo=FALSE}
+short<- topAnnotated_HEvsNS[order(topAnnotated_HEvsNS$adj.P.Val),][1:5,1:4]
+knitr::kable(
+  short, booktabs = TRUE,
+  caption = 'Annotations for the comparison "HEvsNS"'
+)
+```
+
+```{r annotatedTop6, echo=FALSE}
+short<- head(topAnnotated_HEvsLE[order(topAnnotated_HEvsLE$adj.P.Val),])[1:5,1:4]
+knitr::kable(
+  short, booktabs = TRUE,
+  caption = 'Annotations for the comparison "HEvsLE"'
+)
+```
+
 \newpage
 ### Visualitzant l'expressió diferencial
 
-S'usen volcano-plots per a una visualització en global. A tall d'exemple, es mostra el volcano-plot del contrast NSvsCO. Per obtenir els simbols es torna a fer servir la base de dades *hgu133plus2.db*.
+S'utilitzen volcano-plots per a una visualització en global dels gens diferenciats. A tall d'exemple, es mostra el volcano-plot del contrast HEvsNS. Per obtenir els símbols es torna a fer servir la base de dades *hgu133plus2.db*.
 
 
 ```{r volcanoPlot, echo=FALSE, fig.cap="Volcano plot for the comparison between NASH and high dose of elafibranor. The names of the top 4 genes (i.e. the first four genes in the topTable) are shown in the plot"}
 if (params$grafics) {
 geneSymbols <- select(hgu133plus2.db, rownames(fit.main), c("SYMBOL"))
 SYMBOLS<- geneSymbols$SYMBOL
-volcanoplot(fit.main, coef=1, highlight=4, names=SYMBOLS, 
+volcanoplot(fit.main, coef=5, highlight=4, names=SYMBOLS, 
             main=paste("Differentially expressed genes", colnames(cont.matrix)[5], sep="\n"))
   abline(v=c(-1,1))
 }
@@ -647,7 +675,7 @@ volcanoplot(fit.main, coef=1, highlight=4, names=SYMBOLS,
 ```{r saveVolcanos, echo=FALSE, results='hide'}
 if (params$tiff) {
 tiff("figures/VolcanoPlot.tiff", res = 150, width = 5, height = 5, units = 'in')
-volcanoplot(fit.main, coef=1, highlight=4, names=SYMBOLS, 
+volcanoplot(fit.main, coef=5, highlight=4, names=SYMBOLS, 
             main=paste("Differentially expressed genes", colnames(cont.matrix)[5], sep="\n")) 
 abline(v=c(-1,1))
 
@@ -784,7 +812,7 @@ dev.off()
 
 ### Significació biològica
 
-Interpretar els resultats obtinguts comporta anàlitzar la llista de gens obtinguda i veure quines funcions, processos biològics o pathways de molècules apareixen amb major freqüencia en aquesta llista de gens. Al filtrar els gens és recomanable que la selecció sigui menys restrictiva que la realitzada anteriorment. Treballarem amb el paquet *ClusterProfile* seguint les instruccions que es troben a @Yu2020.
+Interpretar els resultats obtinguts comporta analitzar la llista de gens obtinguda i veure quines funcions, processos biològics o pathways de molècules apareixen amb major freqüència en aquesta llista de gens. Al filtrar els gens és recomanable que la selecció sigui menys restrictiva que la realitzada anteriorment. Treballarem amb el paquet *ClusterProfile* seguint les instruccions que es troben a @Yu2020.
 
 Primer cal preparar un vector de gens per a cada comparació triada amb el valor `fold change` ordenat de major a menor i l'EntrezID com a nom de cada fila. Es mostra el número de gens filtrats en cada cas:
 
@@ -937,7 +965,7 @@ Tab.react2 <- read.csv2(file.path("./results/ClusterProfileKEGG.Results.NSvsCO.c
                        sep = ",", header = TRUE)
 
 Tab.react2 <- Tab.react2[1:4, 1:5]
-knitr::kable(Tab.react2, booktabs = TRUE, caption = "First rows and columns for ClusterProfiler KEGG on NSvsCO comparison")
+knitr::kable(format(Tab.react2,digits=4), booktabs = TRUE, caption = "First rows and columns for ClusterProfiler KEGG on NSvsCO comparison")
 ```
 
 # Resultats
@@ -958,7 +986,7 @@ knitr::kable(
 
 Trobo dos punts a discutir:
 
-* Si s'hauria de descartar el microarray NS.HE.1 per no cumplir els valors de qualitat abans de la normalització.
+* Si s'hauria de descartar el microarray NS.HE.1 per no complir els valors de qualitat abans de la normalització.
 * L'experiment es va fer en diversos lots, separats els uns dels altres fins a 5 mesos en el temps. No n'he trobat explicació a l'article. A ser possible convindria que tots els microarrays s'haguessin generat en el mateix lot per evitar l'efecte "batch". 
 
 # Referencies
