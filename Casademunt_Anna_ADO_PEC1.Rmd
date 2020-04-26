@@ -64,7 +64,7 @@ L'objectiu de l'estudi és identificar, a través del transcriptoma o expressió
 
 L'anàlisi s'ha realitzat seguint els pasos de l'estudi d'Alex Sánchez  <https://github.com/ASPteaching/Omics_Data_Analysis-Case_Study_1-Microarrays>, modificant els pasos on s'ha considerat pertinent, i utilitzant técniques més modernes en el cas de ReactomePa, tal com s'ha sugerit al fórum de l'assignatura.
 
-El codi R no es mostrarà en el cos del document, tot i que s'hi executen *chunks*. El codi complet es pot trobar al github <https://github.com/Turing78/ADO_PEC1.git>.
+El codi R no es mostrarà en el cos del document, tot i que s'hi executen *chunks*. El codi complet es pot trobar al <https://github.com/Turing78/ADO_PEC1.git>, però aquest repositori és privat per donar compliment al codi étic de la UOC i evitar plagis. 
 
 Addicionalment, i per garantir la reproduïbilitat de l'anàlisi, s'inclou també el directori *data* amb les dades de les cels del microarray i el fitxer *target.csv*.
 
