@@ -8,7 +8,7 @@ params:
   instalar:
     input: boolean
     label: Instalar els packages
-    value: no
+    value: yes
   grafics:
     input: boolean
     label: Dibuixar els grafics
